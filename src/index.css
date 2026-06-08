@@ -1,0 +1,82 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Mukta:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+@theme {
+  --color-brandNavy: #072B63;
+  --color-brandNavy-dark: #031736;
+  --color-brandNavy-light: #103F80;
+  --color-brandGold: #F5B21A;
+  --color-brandGold-dark: #D2940D;
+  --color-brandGold-light: #F8C34B;
+  --color-brandGreen: #0B7A3A;
+  --color-brandGreen-dark: #085729;
+  --color-brandGreen-light: #11A54F;
+  --color-brandRed: #B11434;
+  --color-brandRed-dark: #840E26;
+  --color-brandRed-light: #DE244C;
+  --color-brandGray: #F4F4F4;
+  --color-brandGray-dark: #E2E2E2;
+  --color-brandGray-light: #FAFAFA;
+  --font-sans: 'Poppins', sans-serif;
+  --font-hindi: 'Mukta', sans-serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    font-family: 'Poppins', 'Mukta', sans-serif;
+  }
+  
+  body {
+    @apply bg-brandGray text-brandNavy-dark antialiased overflow-x-hidden;
+  }
+}
+
+/* Custom styles for animations, gradients and premium look */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.glass-panel-dark {
+  background: rgba(7, 43, 99, 0.9);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.hero-gradient {
+  background: linear-gradient(135deg, #072B63 0%, #103F80 100%);
+}
+
+.gold-gradient {
+  background: linear-gradient(135deg, #F5B21A 0%, #F8C34B 100%);
+}
+
+.card-shadow {
+  box-shadow: 0 10px 30px -10px rgba(7, 43, 99, 0.15);
+}
+
+.card-shadow-hover {
+  box-shadow: 0 20px 40px -15px rgba(7, 43, 99, 0.25);
+}
+
+/* Scrollbar customization */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #F4F4F4;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #072B63;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #103F80;
+}
