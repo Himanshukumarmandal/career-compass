@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../../services/api';
 
 const AuthContext = createContext(null);
 
@@ -18,20 +18,33 @@ export const AuthProvider = ({ children }) => {
     return stored ? JSON.parse(stored) : null;
   });
   const [loading, setLoading] = useState(false);
+  const [checkingAuth, setCheckingAuth] = useState(true);
 
-  // Set axios default auth header
+  // Validate token on app load
   useEffect(() => {
-    if (token) {
-      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-    } else {
-      delete axios.defaults.headers.common['Authorization'];
-    }
+    const validateToken = async () => {
+      if (token) {
+        try {
+          const res = await api.get('/auth/verify');
+          if (res.data.success) {
+            setAdmin(res.data.admin);
+          } else {
+            logout();
+          }
+        } catch (err) {
+          console.error('Session validation failed:', err.message);
+          logout();
+        }
+      }
+      setCheckingAuth(false);
+    };
+    validateToken();
   }, [token]);
 
   const login = async (email, password, rememberMe = false) => {
     setLoading(true);
     try {
-      const res = await axios.post('/api/auth/login', { email, password });
+      const res = await api.post('/auth/login', { email, password });
       const { token: newToken, admin: adminData } = res.data;
 
       setToken(newToken);
@@ -62,13 +75,12 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem('cc_admin');
     sessionStorage.removeItem('cc_token');
     sessionStorage.removeItem('cc_admin');
-    delete axios.defaults.headers.common['Authorization'];
   };
 
   const isAuthenticated = !!token;
 
   return (
-    <AuthContext.Provider value={{ token, admin, login, logout, isAuthenticated, loading }}>
+    <AuthContext.Provider value={{ token, admin, login, logout, isAuthenticated, loading, checkingAuth }}>
       {children}
     </AuthContext.Provider>
   );
