@@ -52,13 +52,13 @@ async function seed() {
     console.log('🗑️  Cleared existing data');
 
     // Create admin user
-    const hashedPassword = await bcrypt.hash('Admin@123', 12);
+    const hashedPassword = await bcrypt.hash('Himanshu@985', 12);
     await Admin.create({
-      email: 'admin@careercompass.in',
+      email: 'himanshuinfo14@gmail.com',
       password: hashedPassword,
-      name: 'Admin',
+      name: 'Himanshu Kumar',
     });
-    console.log('👤 Admin created: admin@careercompass.in / Admin@123');
+    console.log('👤 Admin created: himanshuinfo14@gmail.com / Himanshu@985');
 
     // Create leads
     const leads = names.map((name) => ({
